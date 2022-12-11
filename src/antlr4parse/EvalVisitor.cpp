@@ -1,0 +1,76 @@
+//
+// Created by raymon on 11/12/22.
+//
+
+/*EvalVisitor.cpp*/
+#include "EvalVisitor.h"
+
+antlrcpp::Any VarSymbol:: containsKey(std::string s)
+{
+    MAP_STRING_T::iterator m_it = symbol.find(s);
+    if (m_it != symbol.end())
+    {
+        return m_it->second;
+    }
+    else return NULL;
+}
+
+antlrcpp::Any EvalVisitor::visitAssign(ExprParser::AssignContext* ctx)
+{
+    std::string s = ctx->ID()->getText();   //其中ctx表示标签所代表的语法树,ID是此语法树中的ID分支
+    antlrcpp::Any value = visit(ctx->expr()); //因为expr不是一个终结符，调用visit()访问expr的值
+    var->put(s, value); //存入符号表
+    return value;
+}
+
+antlrcpp::Any EvalVisitor::visitPrintExpr(ExprParser::PrintExprContext* ctx)
+{
+    antlrcpp::Any value = visit(ctx->expr());  //因为expr不是一个终结符，调用visit()访问expr的值
+    if (value.is<std::string>())        //对返回值的类型进行判断 antlrcpp::Any类的is()方法
+    {
+        std::cout << value.as<std::string>()<<std::endl;  //antlrcpp::Any类的as<>()方法返回给定类型值
+    }
+    else
+    {
+        std::cout << value.as<int>() << std::endl;
+    }
+    return 0;
+}
+
+antlrcpp::Any EvalVisitor::visitInt(ExprParser::IntContext* ctx)
+{
+    std::string s = ctx->INT()->getText(); //终结符getText()返回值
+    int value = stoi(s);
+    return antlrcpp::Any(value);
+}
+
+antlrcpp::Any EvalVisitor::visitId(ExprParser::IdContext* ctx)
+{
+    std::string id = ctx->ID()->getText();
+    antlrcpp::Any anyone = var->containsKey(id); //符号表查询id对应的值
+    return anyone; //返回对应值
+    //由于没有写错误检查如果没有对id进行赋值 就会返回为0;
+}
+
+antlrcpp::Any EvalVisitor::visitAddSub(ExprParser::AddSubContext* ctx)
+{
+    antlrcpp::Any l = visit(ctx->expr(0)); //暂时理解为addsub语法中,含有两个expr，此处相当于按索引值判定左右子树
+    antlrcpp::Any r = visit(ctx->expr(1));
+    if (ctx->op->getType() == ExprParser::ADD) return l.as<int>() + r.as<int>();
+        //语法中op属性和词法文件中终结符ADD进行比对
+    else return l.as<int>() - r.as<int>();
+}
+
+antlrcpp::Any EvalVisitor::visitMulDiv(ExprParser::MulDivContext* ctx)
+{
+    antlrcpp::Any l = visit(ctx->expr(0));
+    antlrcpp::Any r = visit(ctx->expr(1));
+    if (ctx->op->getType() == ExprParser::MUL) return l.as<int>() * r.as<int>();
+        //语法中op属性和词法文件中终结符MUL进行比对
+    else return l.as<int>() / r.as<int>();
+}
+
+antlrcpp::Any EvalVisitor::visitParens(ExprParser::ParensContext* ctx)
+{
+    return visit(ctx->expr()); //返回对应值
+}

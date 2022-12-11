@@ -21,7 +21,21 @@ public:
    */
     virtual std::any visitProg(ExprParser::ProgContext *context) = 0;
 
-    virtual std::any visitExpr(ExprParser::ExprContext *context) = 0;
+    virtual std::any visitPrintExpr(ExprParser::PrintExprContext *context) = 0;
+
+    virtual std::any visitAssign(ExprParser::AssignContext *context) = 0;
+
+    virtual std::any visitBlank(ExprParser::BlankContext *context) = 0;
+
+    virtual std::any visitParens(ExprParser::ParensContext *context) = 0;
+
+    virtual std::any visitMulDiv(ExprParser::MulDivContext *context) = 0;
+
+    virtual std::any visitAddSub(ExprParser::AddSubContext *context) = 0;
+
+    virtual std::any visitId(ExprParser::IdContext *context) = 0;
+
+    virtual std::any visitInt(ExprParser::IntContext *context) = 0;
 
 
 };

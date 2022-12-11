@@ -31,13 +31,14 @@ add_custom_command(
 include_directories(
         ${ANTLR_OUTPUT_DIR}
         ${ANTLR_INCLUDE_DIR}
+#       ${PROJECT_SOURCE_DIR}/src/antlr4parse
 )
 link_directories(
         ${ANTLR_LIB_DIR}
 )
 
-# add_executable(parse main.cpp ${ANTLR_OUTPUT_FILES})
-add_executable(Parse main.cpp ${ANTLR_OUTPUT_FILES})
+add_executable(Parse main.cpp ${ANTLR_OUTPUT_FILES}
+        src/antlr4parse/EvalVisitor.cpp)
 
 target_link_libraries(
         Parse antlr4-runtime

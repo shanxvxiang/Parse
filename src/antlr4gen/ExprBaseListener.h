@@ -19,8 +19,29 @@ public:
   virtual void enterProg(ExprParser::ProgContext * /*ctx*/) override { }
   virtual void exitProg(ExprParser::ProgContext * /*ctx*/) override { }
 
-  virtual void enterExpr(ExprParser::ExprContext * /*ctx*/) override { }
-  virtual void exitExpr(ExprParser::ExprContext * /*ctx*/) override { }
+  virtual void enterPrintExpr(ExprParser::PrintExprContext * /*ctx*/) override { }
+  virtual void exitPrintExpr(ExprParser::PrintExprContext * /*ctx*/) override { }
+
+  virtual void enterAssign(ExprParser::AssignContext * /*ctx*/) override { }
+  virtual void exitAssign(ExprParser::AssignContext * /*ctx*/) override { }
+
+  virtual void enterBlank(ExprParser::BlankContext * /*ctx*/) override { }
+  virtual void exitBlank(ExprParser::BlankContext * /*ctx*/) override { }
+
+  virtual void enterParens(ExprParser::ParensContext * /*ctx*/) override { }
+  virtual void exitParens(ExprParser::ParensContext * /*ctx*/) override { }
+
+  virtual void enterMulDiv(ExprParser::MulDivContext * /*ctx*/) override { }
+  virtual void exitMulDiv(ExprParser::MulDivContext * /*ctx*/) override { }
+
+  virtual void enterAddSub(ExprParser::AddSubContext * /*ctx*/) override { }
+  virtual void exitAddSub(ExprParser::AddSubContext * /*ctx*/) override { }
+
+  virtual void enterId(ExprParser::IdContext * /*ctx*/) override { }
+  virtual void exitId(ExprParser::IdContext * /*ctx*/) override { }
+
+  virtual void enterInt(ExprParser::IntContext * /*ctx*/) override { }
+  virtual void exitInt(ExprParser::IntContext * /*ctx*/) override { }
 
 
   virtual void enterEveryRule(antlr4::ParserRuleContext * /*ctx*/) override { }

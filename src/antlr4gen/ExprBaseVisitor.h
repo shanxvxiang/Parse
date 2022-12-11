@@ -19,7 +19,35 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual std::any visitExpr(ExprParser::ExprContext *ctx) override {
+  virtual std::any visitPrintExpr(ExprParser::PrintExprContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitAssign(ExprParser::AssignContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitBlank(ExprParser::BlankContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitParens(ExprParser::ParensContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitMulDiv(ExprParser::MulDivContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitAddSub(ExprParser::AddSubContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitId(ExprParser::IdContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitInt(ExprParser::IntContext *ctx) override {
     return visitChildren(ctx);
   }
 
