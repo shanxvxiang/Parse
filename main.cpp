@@ -19,4 +19,16 @@ int main(int argc, const char* argv[]) {
     EvalVisitor eval; //实例化自定义的访问器类
     eval.visit(tree); //通过visit()函数开始遍历语法树
     return 0;
+/*    std::vector<std::any> values{1.0, "Hello", -42, 'b'};
+    for(auto & any : values) {
+        int * i;
+        if(i = std::any_cast<int>(&any)) std::cout << "int: " << *i << std::endl;
+        const char ** s;
+        if(s = std::any_cast<const char *>(&any)) std::cout << "string-literal: " << *s << std::endl;
+        double * d;
+        if(d = std::any_cast<double>(&any)) std::cout << "double: " << *d << std::endl;
+        char * c;
+        if(c = std::any_cast<char>(&any)) std::cout << "char: " << *c << std::endl;
+    }
+    */
 }

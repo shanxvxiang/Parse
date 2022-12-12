@@ -26,14 +26,10 @@ antlrcpp::Any EvalVisitor::visitAssign(ExprParser::AssignContext* ctx)
 antlrcpp::Any EvalVisitor::visitPrintExpr(ExprParser::PrintExprContext* ctx)
 {
     antlrcpp::Any value = visit(ctx->expr());  //因为expr不是一个终结符，调用visit()访问expr的值
-    if (value.is<std::string>())        //对返回值的类型进行判断 antlrcpp::Any类的is()方法
-    {
-        std::cout << value.as<std::string>()<<std::endl;  //antlrcpp::Any类的as<>()方法返回给定类型值
-    }
+    if (value.type() == typeid(std::string))        //对返回值的类型进行判断 antlrcpp::Any类的is()方法
+        std::cout << std::any_cast<std::string>(&value) << std::endl;  //antlrcpp::Any类的as<>()方法返回给定类型值
     else
-    {
-        std::cout << value.as<int>() << std::endl;
-    }
+        std::cout << *std::any_cast<int>(&value) << std::endl;
     return 0;
 }
 
@@ -56,18 +52,16 @@ antlrcpp::Any EvalVisitor::visitAddSub(ExprParser::AddSubContext* ctx)
 {
     antlrcpp::Any l = visit(ctx->expr(0)); //暂时理解为addsub语法中,含有两个expr，此处相当于按索引值判定左右子树
     antlrcpp::Any r = visit(ctx->expr(1));
-    if (ctx->op->getType() == ExprParser::ADD) return l.as<int>() + r.as<int>();
-        //语法中op属性和词法文件中终结符ADD进行比对
-    else return l.as<int>() - r.as<int>();
+    if (ctx->op->getType() == ExprParser::ADD) return (*std::any_cast<int>(&l)) + (*std::any_cast<int>(&r));
+    else return (*std::any_cast<int>(&l)) - (*std::any_cast<int>(&r));
 }
 
 antlrcpp::Any EvalVisitor::visitMulDiv(ExprParser::MulDivContext* ctx)
 {
     antlrcpp::Any l = visit(ctx->expr(0));
     antlrcpp::Any r = visit(ctx->expr(1));
-    if (ctx->op->getType() == ExprParser::MUL) return l.as<int>() * r.as<int>();
-        //语法中op属性和词法文件中终结符MUL进行比对
-    else return l.as<int>() / r.as<int>();
+    if (ctx->op->getType() == ExprParser::MUL) return (*std::any_cast<int>(&l)) * (*std::any_cast<int>(&r));
+    else return (*std::any_cast<int>(&l)) / (*std::any_cast<int>(&r));
 }
 
 antlrcpp::Any EvalVisitor::visitParens(ExprParser::ParensContext* ctx)
