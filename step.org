@@ -3,7 +3,8 @@ github  shanxvxiang foxmail.com I6!
 github  otc-tech qq.com I6!
 mail.otc-tech.cn shanxuxiang I6!
 express https://www.exp2links2.net/login qq.com I6!
-exmail.qq.com 
+exmail.qq.com
+
 
 * install antlr4
 2022/12/09
@@ -60,5 +61,8 @@ java -jar antlr4-4.11.1-complete.jar -Dlanguage=Cpp -visitor -o ../src/antlrgen/
 add_executable(parse main.cpp)
 
 
-
+* other learn
+** regular expression https://www.runoob.com/regexp/regexp-syntax.html
+** puml https://www.kancloud.cn/daleboy/blockchain/1993967
+        https://plantuml.com/zh/class-diagram
 
