@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.24)
 project(Parse)
 
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_FLAGS "-std=c++17 -pthread -O2 -Wno-deprecated")
+set(CMAKE_CXX_FLAGS "-std=c++17 -pthread -O2 -lssl -lcrypto -lpthread -o -DSTATIC_CONCPP -I -Wno-deprecated")
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 
 set(ANTLR_SOURCE_DIR ${PROJECT_SOURCE_DIR}/antlr4)
@@ -46,5 +46,5 @@ add_executable(Parse main.cpp ${ANTLR_OUTPUT_FILES}
         src/antlr4parse/EvalVisitor.cpp)
 
 target_link_libraries(
-        Parse antlr4-runtime
+        Parse antlr4-runtime mysqlcppconn-static
 )
