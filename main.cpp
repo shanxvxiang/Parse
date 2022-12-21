@@ -3,6 +3,7 @@
 #include "antlr4-runtime.h"
 #include "ExprLexer.h"
 #include "ExprParser.h"
+#include "mysql/jdbc.h"
 #include "src/antlr4parse/EvalVisitor.h"
 
 #pragma execution_character_set("utf-8")
